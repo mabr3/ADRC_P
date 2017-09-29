@@ -1,10 +1,10 @@
 all: main file struct
 
-main: main.c file.h struct.h
+main: main.c file.o struct.o
 	gcc -g -Wall main.c -o main
 
-struct: struct.c struct.h
+struct.o: struct.c struct.h
 	gcc -g -Wall struct.c
 
-file: file.c file.h
+file.o: file.c file.h
 	gcc -g -Wall file.c
