@@ -5,7 +5,7 @@
 #include "struct.h"
 
 
-int main(int argc, char * argv){
+int main(int argc, char * argv[]){
 
 	if(argc != 1){
 		printf("Wrong number of arguments. Try again.\n");
