@@ -1,4 +1,4 @@
 #include "struct.h"
 
-void impfile(int i);
-Tree * readFile(char * nome);
+Tree * PrefixTree(char * nome);
+void AddTable();

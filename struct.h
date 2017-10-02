@@ -16,8 +16,11 @@ typedef struct Tree{
 
 }Tree;
 
-void impstruct(int i);
 void searchNode(char * address, char * next_hop, Node * no, int pos);
 void imprime(Node * no);
+void PrintTable(Tree * arvore, char * address);
+void LookUp(Tree * arvore, char * address);
+Tree * DeletePrefix(Tree * arvore, char * prefix);
+Tree * InsertPrefix(Tree * arvore, char * prefix, char * nexthop);
 
 #endif
