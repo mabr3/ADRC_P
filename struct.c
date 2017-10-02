@@ -65,11 +65,23 @@ void imprime( Node * no){
 * 
 *********************************************/
 
-void PrintTable(Tree * arvore, char * address){
-	//int address[18];
+void PrintTable(Node * no, char * address){
 
-	/*struct Node * search;
-	search = arvore->first;*/
+	if(no!=NULL){
+		if(no->nexthop != 0){
+			printf("%s\t %d\n",address, no->nexthop);
+		}
+		if(no->zero != NULL){
+			strcat(address,"0");
+			PrintTable(no->zero, address);
+		}
+		if(no->one != NULL){
+			strcat(address, "1");
+			PrintTable(no->one, address);
+		}
+		address[strlen(address)-1] = '\0';
+	}
+	return;
 }
 
 /********************************************
@@ -159,7 +171,6 @@ Tree * DeletePrefix(Tree * arvore, char * prefix){
 Tree * InsertPrefix(Tree * arvore, char * prefix, char * nexthop){
 
 	Node * search = arvore->first;
-	Node * aux = search;
 	int i = 0;
 
 	while(prefix[i] != '\0'){

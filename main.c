@@ -27,6 +27,7 @@ int main(int argc, char * argv[]){
 	char buffer[18];
 	char prefixo[18];
 	char nexthop[18];
+	char address[18] = "";
 
 	if(argc != 2){
 		printf("Wrong number of arguments. Try again.\n");
@@ -42,7 +43,8 @@ int main(int argc, char * argv[]){
 
 		switch(atoi(option)){
 			case 1:
-				//PrintTable(arvore);
+				printf("Prefix\t Next Hop\n");
+				PrintTable(arvore->first, address);
 				break;
 
 			case 2:
