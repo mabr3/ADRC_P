@@ -11,11 +11,15 @@
 *********************************************/
 
 void searchNode(char * address, char * next_hop, Node * no, int pos){
+
+
 	if(address[pos] == '0'){
 
 		if(no->zero == NULL){
 			no->zero = (Node *) malloc(sizeof(Node));
 			no->zero->nexthop = 0;
+			no->zero->one = NULL;
+			no->zero->zero = NULL;
 		}
 		
 		if(address[pos+1] == '\0'){
@@ -29,6 +33,8 @@ void searchNode(char * address, char * next_hop, Node * no, int pos){
 
 		if(no->one == NULL){
 			no->one = (Node *) malloc(sizeof(Node));
+			no->one->one = NULL;
+			no->one->zero = NULL;
 			no->one->nexthop = 0;
 		}
 
@@ -42,22 +48,6 @@ void searchNode(char * address, char * next_hop, Node * no, int pos){
 	return;
 }
 
-/********************************************
-* Liga_Servidores():
-* 
-* 
-*********************************************/
-
-/*pre order*/
-void imprime( Node * no){
-	if(no != NULL){
-		printf("%d\n",no->nexthop);
-		imprime(no->zero);
-		imprime(no->one);
-	}
-
-	return;
-}
 
 /********************************************
 * PrintTable():
@@ -126,7 +116,7 @@ void LookUp(Tree * arvore, char * address){
 		}
 	}
 
-	printf("For the given address (%s), the next hop is: %d\n", address, nhop);
+	printf("For the given address (%s), the next hop is: %d\n\n", address, nhop);
 	return;
 }
 
@@ -138,27 +128,42 @@ void LookUp(Tree * arvore, char * address){
 
 Tree * DeletePrefix(Tree * arvore, char * prefix){
 
-	/*Node * search = arvore->first;
+	Node * search = arvore->first;
 	Node * aux = search;
+	int i=0;
 
 	while(prefix[i] != '\0'){
 
 		if((prefix[i] != '0') && (prefix[i] != '1') && (prefix[i] != '\0')){
 			printf("Wrong format for the prefix: %s.\n", prefix);
-			return;
+			return arvore;
 		}
 
 		if(prefix[i] == '0'){
+			if(search->nexthop !=0){
+				aux = search;
+			}
 			search = search->zero;
 			i++;
-
 		}else{
+			if(search->nexthop !=0){
+				aux = search;
+			}
 			search = search->one;
 			i++;
 		}
 
-	}*/
+		/*se tiver filhos então é porque há nexthops em algum deles.*/
+		if(prefix[i] == '\0' && (search->zero != NULL || search->one != NULL)){
+			printf("esotu aqui\n");
+			printf("era %d\n", search->nexthop);
+			search->nexthop = 0;
+			return arvore;
+		}
+	}
 
+
+	printf("Prefix deleted.\n\n");
 	return arvore;
 }
 
@@ -187,6 +192,7 @@ Tree * InsertPrefix(Tree * arvore, char * prefix, char * nexthop){
 			}else{
 				search->zero = (Node *) malloc(sizeof(Node));
 				search = search->zero;
+				search->nexthop = 0;
 				search->zero = NULL;
 				search->one = NULL;
 				i++;
@@ -200,6 +206,7 @@ Tree * InsertPrefix(Tree * arvore, char * prefix, char * nexthop){
 			}else{
 				search->one = (Node *) malloc(sizeof(Node));
 				search = search->one;
+				search->nexthop = 0;
 				search->zero = NULL;
 				search->one = NULL;
 				i++;
@@ -208,5 +215,26 @@ Tree * InsertPrefix(Tree * arvore, char * prefix, char * nexthop){
 	}
 
 	search->nexthop = atoi(nexthop);
+	printf("Prefix inserted.\n\n");
 	return arvore;
+}
+
+/********************************************
+* InsertPrefix():
+* 
+* 
+*********************************************/
+
+void FreeTree(Node * no){
+	Node * aux1;
+	Node * aux2;
+
+	if(no !=NULL){
+		aux1 = no->zero;
+		aux2 = no->one;
+		free(no);
+		FreeTree(aux1);
+		FreeTree(aux2);
+	}
+
 }

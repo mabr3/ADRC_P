@@ -12,12 +12,12 @@
 
 Tree * PrefixTree(char * nome){
 
-	char buffer1[20];
-	char buffer2[3];
+	char buffer1[20] = "";
+	char buffer2[3] = "";
 
 	FILE * fp;
 
-	struct Tree * arvore; 
+	struct Tree * arvore = NULL; 
 
 	fp = fopen(nome, "r");
 
@@ -37,6 +37,8 @@ Tree * PrefixTree(char * nome){
 
 		searchNode(buffer1, buffer2, arvore->first, 0);
 	}
+
+	fclose(fp);
 
 	return(arvore);
 }
