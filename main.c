@@ -51,7 +51,6 @@ int main(int argc, char * argv[]){
 			case 2:
 				printf("What's the address you want to search?\n");
 				fgets(buffer,16, stdin);
-				printf("%s\n", buffer);
 				buffer[strlen(buffer)-1] = '\0'; /*Terminar astring sem o \n*/
 				LookUp(arvore, buffer);
 				break;

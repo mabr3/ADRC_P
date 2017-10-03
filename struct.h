@@ -21,6 +21,7 @@ void imprime(Node * no);
 void PrintTable(Node * no, char * address);
 void LookUp(Tree * arvore, char * address);
 Tree * DeletePrefix(Tree * arvore, char * prefix);
+void DeleteNodes(Node *no, char * prefix, int stop);
 Tree * InsertPrefix(Tree * arvore, char * prefix, char * nexthop);
 void FreeTree(Node * no);
 
