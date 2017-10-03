@@ -23,10 +23,10 @@ void menu(){
 int main(int argc, char * argv[]){
 
 	struct Tree * arvore;
-	char option[7];
-	char buffer[18];
-	char prefixo[18];
-	char nexthop[18];
+	char option[7] = "";
+	char buffer[18] = "";
+	char prefixo[18] = "";
+	char nexthop[18] = "";
 	char address[18] = "";
 
 	if(argc != 2){
@@ -45,6 +45,7 @@ int main(int argc, char * argv[]){
 			case 1:
 				printf("Prefix\t Next Hop\n");
 				PrintTable(arvore->first, address);
+				printf("\n\n");
 				break;
 
 			case 2:
@@ -68,16 +69,22 @@ int main(int argc, char * argv[]){
 
 			case 4:
 
-				//arvore = DeletePrefix(arvore, prefixo);
+				printf("What's the address you want to delete?\n");
+				fgets(prefixo, 16, stdin);
+				prefixo[strlen(prefixo)-1] = '\0'; /*Terminar astring sem o \n*/
+				arvore = DeletePrefix(arvore, prefixo);
 				break;
 
 			case 5:
 				printf("Exiting.\n");
+				FreeTree(arvore->first);
+				free(arvore);
 				exit(0);
-				;
+				
 			default:
 				printf("Invalid command.\n");
 		}
 	}
+
 	exit(0);
 }
