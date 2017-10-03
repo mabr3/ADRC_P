@@ -167,28 +167,16 @@ Tree * DeletePrefix(Tree * arvore, char * prefix){
 
 		/*se tiver filhos então é porque há nexthops em algum deles.*/
 		if(prefix[i] == '\0' && (search->zero != NULL || search->one != NULL)){
-			printf("Delete sem ser folha.\n");
 			search->nexthop = 0;
 			break;
 		}
 
 		if(prefix[i] == '\0' && search->zero == NULL && search->one == NULL){
-			printf("Delete folha e coisas para cima se necessário.\n");
 			search->nexthop = 0;
 			DeleteNodes(aux, prefix, it_stop);
-			if(it_stop == 0){
-				printf("olelele\n");
-			}else{
-				printf("erro\n");
-				aux->one = NULL;
-			}
 			break;
 		}
 	}
-
-	/*if(aux->zero->zero == NULL){printf("tem de ser \n");}
-	if(aux->one == NULL){printf("ola caralo\n");}
-	if(aux->zero == NULL){printf("fds\n");}*/
 	printf("Prefix %s deleted.\n\n", prefix);
 	return arvore;
 }
@@ -273,7 +261,7 @@ Tree * InsertPrefix(Tree * arvore, char * prefix, char * nexthop){
 	}
 
 	search->nexthop = atoi(nexthop);
-	printf("Prefix inserted.\n\n");
+	printf("Prefix %s inserted with %s as nexthop.\n\n", prefix, nexthop);
 	return arvore;
 }
 
@@ -291,7 +279,6 @@ void FreeTree(Node * no){
 		aux1 = no->zero;
 		aux2 = no->one;
 		free(no);
-		printf("++\n");
 		FreeTree(aux1);
 		FreeTree(aux2);
 	}
