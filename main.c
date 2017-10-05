@@ -15,7 +15,8 @@ void menu(){
 			"- 2)\t lookup - Search for the next hop for a given address.\n"
 			"- 3)\t insert - Insert a given prefix and the associated next-hop in the table.\n"
 			"- 4)\t delete - Delete a chosen prefix from the table.\n"
-			"- 5)\t exit: Terminate the application.\n\n\n");
+			"- 5)\t exit: Terminate the application.\n\n\n"
+			"- 6)\t Extra: Print the table of even length prefixes for the two-bit prefix tree.\n\n");
 		printf("%s",buffer);
 }
 
@@ -23,6 +24,7 @@ void menu(){
 int main(int argc, char * argv[]){
 
 	struct Tree * arvore;
+	struct Tree_Bi * arvore_bi;
 	char option[7] = "";
 	char buffer[18] = "";
 	char prefixo[18] = "";
@@ -79,6 +81,12 @@ int main(int argc, char * argv[]){
 				FreeTree(arvore->first);
 				free(arvore);
 				exit(0);
+
+			case 6:
+				arvore_bi = BinaryToTwoBit(arvore);
+				PrintTableEven(arvore_bi->first, address);
+				FreeTreeEven(arvore_bi->first);
+				free(arvore_bi);
 				
 			default:
 				printf("Invalid command.\n");

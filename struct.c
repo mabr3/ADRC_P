@@ -284,3 +284,46 @@ void FreeTree(Node * no){
 	}
 
 }
+
+/*Extra */
+Tree_Bi * BinaryToTwoBit(Tree * arvore){
+
+}
+
+/********************************************
+* PrintTableEven():
+* 
+* 
+*********************************************/
+void PrintTable(Node * no, char * address){
+
+	if(no!=NULL){
+		if(no->nexthop != 0){
+			printf("%s\t %d\n",address, no->nexthop);
+		}
+		if(no->z_z != NULL){
+			strcat(address,"00");
+			PrintTableEven(no->z_z, address);
+		}
+		if(no->z_o != NULL){
+			strcat(address,"01");
+			PrintTableEven(no->z_o, address);
+		}
+		if(no->o_z != NULL){
+			strcat(address,"10");
+			PrintTableEven(no->o_z,address);
+		}
+		if(no->0_0 != NULL){
+			strcat(address, "11");
+			PrintTableEven(no->one, address);
+		}
+		address[strlen(address)-2] = '\0';
+	}
+	return;
+}
+
+/********************************************
+* DeleteTableEven():
+* 
+* 
+*********************************************/
