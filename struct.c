@@ -284,3 +284,190 @@ void FreeTree(Node * no){
 	}
 
 }
+
+/*Extra */
+
+/********************************************
+* BinaryToTwoBit():
+* 
+* 
+*********************************************/
+
+void BinaryToTwoBit(Node * no, Node_Bi * no2){
+
+	if(no->zero != NULL){
+		if(no->zero->zero != NULL){
+			if(no2->z_z == NULL){
+				no2->z_z = (Node_Bi *) malloc(sizeof(Node_Bi));
+				no2->z_z->z_z = NULL;
+				no2->z_z->o_z = NULL;
+				no2->z_z->z_o = NULL;
+				no2->z_z->o_o = NULL;
+				no2->z_z->nexthop = 0;
+			}
+			if(no->zero->zero->nexthop != 0){
+				no2->z_z->nexthop = no->zero->zero->nexthop;
+			}else{
+				no2->z_z->nexthop = no->zero->nexthop;
+			}
+			BinaryToTwoBit(no->zero->zero, no2->z_z);
+		}
+		if(no->zero->one != NULL){
+			if(no2->z_o == NULL){
+				no2->z_o = (Node_Bi *) malloc(sizeof(Node_Bi));
+				no2->z_o->z_z = NULL;
+				no2->z_o->o_z = NULL;
+				no2->z_o->z_o = NULL;
+				no2->z_o->o_o = NULL;
+				no2->z_o->nexthop = 0;
+			}
+			if(no->zero->one->nexthop != 0){
+				no2->z_o->nexthop = no->zero->one->nexthop;
+			}else{
+				no2->z_o->nexthop = no->zero->nexthop;
+			}
+
+			BinaryToTwoBit(no->zero->one, no2->z_o);
+		}
+		if(no->zero->nexthop !=0 && no->zero->zero == NULL && no->zero->one == NULL){
+			if(no2->z_z == NULL){
+				no2->z_z = (Node_Bi *) malloc(sizeof(Node_Bi));
+				no2->z_z->z_z = NULL;
+				no2->z_z->o_z = NULL;
+				no2->z_z->z_o = NULL;
+				no2->z_z->o_o = NULL;
+			}
+			if(no2->z_o == NULL){
+				no2->z_o = (Node_Bi *) malloc(sizeof(Node_Bi));
+				no2->z_o->z_z = NULL;
+				no2->z_o->o_z = NULL;
+				no2->z_o->z_o = NULL;
+				no2->z_o->o_o = NULL;
+			}
+
+			no2->z_z->nexthop = no->zero->nexthop;
+			no2->z_o->nexthop = no->zero->nexthop;
+		}
+	}
+
+	if(no->one != NULL){
+		if(no->one->zero != NULL){
+			if(no2->o_z == NULL){
+				no2->o_z = (Node_Bi *) malloc(sizeof(Node_Bi));
+				no2->o_z->z_z = NULL;
+				no2->o_z->o_z = NULL;
+				no2->o_z->z_o = NULL;
+				no2->o_z->o_o = NULL;
+				no2->o_z->nexthop = 0;
+			}
+
+			if(no->one->zero->nexthop != 0){
+				no2->o_z->nexthop = no->one->zero->nexthop;
+			}else{
+				no2->o_z->nexthop = no->one->nexthop;
+			}
+
+			BinaryToTwoBit(no->one->zero, no2->o_z);
+		}
+
+		if(no->one->one != NULL){
+			if(no2->o_o == NULL){
+				no2->o_o = (Node_Bi *) malloc(sizeof(Node_Bi));
+				no2->o_o->z_z = NULL;
+				no2->o_o->o_z = NULL;
+				no2->o_o->z_o = NULL;
+				no2->o_o->o_o = NULL;
+				no2->o_o->nexthop = 0;
+			}
+
+			if(no->one->one->nexthop != 0){
+				no2->o_o->nexthop = no->one->one->nexthop;
+			}else{
+				no2->o_o->nexthop = no->one->nexthop;
+			}
+
+			BinaryToTwoBit(no->one->one, no2->o_o);
+		}
+
+		if(no->one->nexthop !=0 && no->one->zero == NULL && no->one->one == NULL){
+			if(no2->o_z == NULL){
+				no2->o_z = (Node_Bi *) malloc(sizeof(Node_Bi));
+				no2->o_z->z_z = NULL;
+				no2->o_z->o_z = NULL;
+				no2->o_z->z_o = NULL;
+				no2->o_z->o_o = NULL;
+			}
+			if(no2->o_o == NULL){
+				no2->o_o = (Node_Bi *) malloc(sizeof(Node_Bi));
+				no2->o_o->z_z = NULL;
+				no2->o_o->o_z = NULL;
+				no2->o_o->z_o = NULL;
+				no2->o_o->o_o = NULL;
+			}
+
+			no2->o_z->nexthop = no->one->nexthop;
+			no2->o_o->nexthop = no->one->nexthop;
+		}
+	}
+
+	return;
+}
+
+/********************************************
+* PrintTableEven():
+* 
+* 
+*********************************************/
+void PrintTableEven(Node_Bi * no, char * address){
+
+	if(no != NULL){
+		if(no->nexthop != 0){
+			printf("%s\t %d\n",address, no->nexthop);
+		}
+		if(no->z_z != NULL){
+			strcat(address, "00");
+			PrintTableEven(no->z_z, address);
+		}
+		if(no->z_o != NULL){
+			strcat(address, "01");
+			PrintTableEven(no->z_o, address);
+		}
+		if(no->o_z != NULL){
+			strcat(address, "10");
+			PrintTableEven(no->o_z,address);
+		}
+		if(no->o_o != NULL){
+			strcat(address, "11");
+			PrintTableEven(no->o_o, address);
+		}
+		address[strlen(address)-2] = '\0';
+	}
+
+	return;
+}
+
+/********************************************
+* FreeTreeEven():
+* 
+* 
+*********************************************/
+void FreeTreeEven(Node_Bi * no){
+	Node_Bi * aux1;
+	Node_Bi * aux2;
+	Node_Bi * aux3;
+	Node_Bi * aux4;
+
+	if(no !=NULL){
+		aux1 = no->z_z;
+		aux2 = no->z_o;
+		aux3 = no->o_z;
+		aux4 = no->o_o;
+		free(no);
+		FreeTreeEven(aux1);
+		FreeTreeEven(aux2);
+		FreeTreeEven(aux3);
+		FreeTreeEven(aux4);
+	}
+
+	return;
+}
