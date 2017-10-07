@@ -24,7 +24,7 @@ void menu(){
 int main(int argc, char * argv[]){
 
 	struct Tree * arvore;
-	struct Tree_Bi * arvore_bi;
+	struct Tree_Bi* arvore_bi;
 	char option[7] = "";
 	char buffer[18] = "";
 	char prefixo[18] = "";
@@ -83,10 +83,22 @@ int main(int argc, char * argv[]){
 				exit(0);
 
 			case 6:
-				arvore_bi = BinaryToTwoBit(arvore);
+				arvore_bi = (Tree_Bi *) malloc(sizeof(Tree_Bi));
+				arvore_bi->first = (Node_Bi *) malloc(sizeof(Node_Bi));
+				arvore_bi->first->nexthop = 0;
+				arvore_bi->first->z_z = NULL;
+				arvore_bi->first->z_o = NULL;
+				arvore_bi->first->o_z = NULL;
+				arvore_bi->first->o_o = NULL; 
+				//Create2Prefix(arvore->first, arvore_bi->first);
+				BinaryToTwoBit(arvore->first, arvore_bi->first);
+				printf("Prefix\t Next Hop\n");
 				PrintTableEven(arvore_bi->first, address);
 				FreeTreeEven(arvore_bi->first);
 				free(arvore_bi);
+				//PrintTable2(arvore_bi->first);
+				printf("\n\n");
+				break;
 				
 			default:
 				printf("Invalid command.\n");

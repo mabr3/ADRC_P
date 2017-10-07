@@ -39,7 +39,8 @@ void FreeTree(Node * no);
 
 /*Extra */
 
-Tree_Bi * BinaryToTwoBit(Tree * arvore);
-void PrintTableEven(Node_Bi * no, char * address); 
+void BinaryToTwoBit(Node * no, Node_Bi * no2);
+void PrintTableEven(Node_Bi * no, char * address);
+void FreeTreeEven(Node_Bi * no);
 
 #endif
