@@ -1,3 +1,15 @@
+/********************************************
+* IST - MEEC
+* ADRC 1º semestre 2016/2017
+* 1ªMini-Projecto: Prefix Trees and Longest 
+* Prefix Matching
+
+* Turno de 2ª, 17h Grupo 6
+* 
+* Miguel Rodrigues, nº 76176 
+* Pedro Esteves, nº 77060
+* 
+*********************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -295,6 +307,7 @@ void FreeTree(Node * no){
 
 void BinaryToTwoBit(Node * no, Node_Bi * no2){
 
+	/*lado esquerdo*/
 	if(no->zero != NULL){
 		if(no->zero->zero != NULL){
 			if(no2->z_z == NULL){
@@ -309,6 +322,15 @@ void BinaryToTwoBit(Node * no, Node_Bi * no2){
 				no2->z_z->nexthop = no->zero->zero->nexthop;
 			}else{
 				no2->z_z->nexthop = no->zero->nexthop;
+			}
+			if(no->zero->one == NULL && no->zero->nexthop != 0){/*caso em que só um dos pointers está para null*/
+				no2->z_o = (Node_Bi *) malloc(sizeof(Node_Bi));
+				no2->z_o->z_z = NULL;
+				no2->z_o->o_z = NULL;
+				no2->z_o->z_o = NULL;
+				no2->z_o->o_o = NULL;
+				no2->z_o->nexthop = no->zero->nexthop;
+
 			}
 			BinaryToTwoBit(no->zero->zero, no2->z_z);
 		}
@@ -326,10 +348,18 @@ void BinaryToTwoBit(Node * no, Node_Bi * no2){
 			}else{
 				no2->z_o->nexthop = no->zero->nexthop;
 			}
+			if(no->zero->zero == NULL && no->zero->nexthop != 0){/*caso em que só um dos pointers está para null*/
+				no2->z_z = (Node_Bi *) malloc(sizeof(Node_Bi));
+				no2->z_z->z_z = NULL;
+				no2->z_z->o_z = NULL;
+				no2->z_z->z_o = NULL;
+				no2->z_z->o_o = NULL;
+				no2->z_z->nexthop = no->zero->nexthop;
+			}
 
 			BinaryToTwoBit(no->zero->one, no2->z_o);
 		}
-		if(no->zero->nexthop !=0 && no->zero->zero == NULL && no->zero->one == NULL){
+		if(no->zero->nexthop !=0 && no->zero->zero == NULL && no->zero->one == NULL){/* caso em que os dois pointers são null*/
 			if(no2->z_z == NULL){
 				no2->z_z = (Node_Bi *) malloc(sizeof(Node_Bi));
 				no2->z_z->z_z = NULL;
@@ -349,6 +379,8 @@ void BinaryToTwoBit(Node * no, Node_Bi * no2){
 			no2->z_o->nexthop = no->zero->nexthop;
 		}
 	}
+	
+	/*lado direito*/
 
 	if(no->one != NULL){
 		if(no->one->zero != NULL){
@@ -365,6 +397,15 @@ void BinaryToTwoBit(Node * no, Node_Bi * no2){
 				no2->o_z->nexthop = no->one->zero->nexthop;
 			}else{
 				no2->o_z->nexthop = no->one->nexthop;
+			}
+			if(no->one->one == NULL && no->one->nexthop != 0){/*caso em que só um dos pointers está para null*/
+				no2->o_o = (Node_Bi *) malloc(sizeof(Node_Bi));
+				no2->o_o->z_z = NULL;
+				no2->o_o->o_z = NULL;
+				no2->o_o->z_o = NULL;
+				no2->o_o->o_o = NULL;
+				no2->o_o->nexthop = no->one->nexthop;
+
 			}
 
 			BinaryToTwoBit(no->one->zero, no2->o_z);
@@ -386,10 +427,20 @@ void BinaryToTwoBit(Node * no, Node_Bi * no2){
 				no2->o_o->nexthop = no->one->nexthop;
 			}
 
+			if(no->one->zero == NULL && no->one->nexthop != 0){/*caso em que só um dos pointers está para null*/
+				no2->o_z = (Node_Bi *) malloc(sizeof(Node_Bi));
+				no2->o_z->z_z = NULL;
+				no2->o_z->o_z = NULL;
+				no2->o_z->z_o = NULL;
+				no2->o_z->o_o = NULL;
+				no2->o_z->nexthop = no->one->nexthop;
+
+			}
+
 			BinaryToTwoBit(no->one->one, no2->o_o);
 		}
 
-		if(no->one->nexthop !=0 && no->one->zero == NULL && no->one->one == NULL){
+		if(no->one->nexthop !=0 && no->one->zero == NULL && no->one->one == NULL){/*caso em que os dois pointers estão para NULL*/
 			if(no2->o_z == NULL){
 				no2->o_z = (Node_Bi *) malloc(sizeof(Node_Bi));
 				no2->o_z->z_z = NULL;
