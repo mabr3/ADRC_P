@@ -1,4 +1,4 @@
-/********************************************
+	/********************************************
 * IST - MEEC
 * ADRC 1º semestre 2016/2017
 * 2ªMini-Projecto: InterDomainRouting
@@ -16,7 +16,6 @@
 
 #include "struct.h"
 
-int v[70000];
 
 /********************************************
 * PrefixTree():
@@ -113,27 +112,20 @@ void FreeGraph(Graph * G){
 * 
 *********************************************/
 
-void VerifyCycle(Node * Nodes[], int T[]){
+int VerifyCycle(Node * Nodes[], int T[]){
 	int i =0;
 	int ciclo = 0;
-	memset(v, 0, sizeof(v));
-
-	for(i=0; T[i] != 0; i++){
-		printf("Vou fazer DFS partindo de %d\n", T[i]);
-		
+	
+	for(i=0; T[i] != 0; i++){/*Começar DS nos T1s*/		
 		ciclo = DFS(Nodes , Nodes[T[i]]);
 		if(ciclo == 1){
-			printf("Existe um costumer cycle.\n");
-			return;
+			printf("Existe um costumer cycle. Saíndo.\n");
+			return 1;
 		}
 	}
 	printf("Não existe costumer cycle!\n");
-	for(i=0;i<70000;i++){
-		if(v[i]!=0){
-			printf("%d visitado %d vezes\n", i, v[i]);
-		}
-	}
-	return;
+
+	return 0;
 }
 
 /********************************************
@@ -149,17 +141,9 @@ int DFS(Node * Nodes[], Node * No){
 	search = No->AdjList_C;
 	No->ciclo = 1;
 
-	//printf("Entrei no nó %d\n", No->number);
-
-	/*if(search == NULL){
-		printf("%d é um stub\n",No->number);
-	}*/
-
-
 	while(search != NULL){
 		if(Nodes[search->AS]->ciclo == 1){/*Já faz parte do caminho, logo existe um ciclo*/
 			ciclo = 1;
-			printf("Ciclo. 1 em %d\n", search->AS);
 			return 1;
 		}else{
 			if(Nodes[search->AS]->visit == 0){ /* Não faz parte do ciclo e ainda não foi visitado, DFS passa para esse nó.*/
@@ -167,17 +151,14 @@ int DFS(Node * Nodes[], Node * No){
 				if(ciclo ==1){
 					return ciclo;
 				}
-				//printf("Voltei ao nó %d\n", No->number);
 			}
 		}
-		
 		search = search->next;
 	}
 
 	/*volta para trás, já não faz parte do ciclo e já foi visitado, não é preciso voltar a vir aqui*/
 	No->ciclo = 0;
 	No->visit = 1;
-	//printf("Vou sair do nó %d\n", No->number);
 	return ciclo;
 }
 
@@ -189,20 +170,14 @@ int DFS(Node * Nodes[], Node * No){
 * 
 *********************************************/
 
-void VerifyCommerc(Node * Nodes[], int T[]){
+int VerifyCommerc(Node * Nodes[], int T[]){
 	int i = 0;
 	int j = 0;
 	int c = 0;
 	NodeAdj * p = NULL;
 
-	for(i=0; i<70000; i++){ /*verificar quais são os Tier1s existentes (não têm providers)*/
-		if(Nodes[i]!= NULL){
-			if(Nodes[i]-> n_p == 0){
-				printf("nó %d tem %d providers e %d costumers\n", i, Nodes[i]->n_p, Nodes[i]->n_c);
-				T[j] = i;
-				j++;
-			}
-		}
+	for(i=0;T[i]!=0;i++){
+		j++;
 	}
 
 	for(i=0; i<j; i++){
@@ -210,18 +185,17 @@ void VerifyCommerc(Node * Nodes[], int T[]){
 		p = Nodes[T[i]]->AdjList_R; /*Peers*/
 		while(p != NULL){
 			if(Nodes[p->AS]->n_p == 0){
-				printf("peer é o nó %d\n", p->AS);
 				c++;
 			}
 			p=p->next;
 		}
-		printf("no %d tem %d peers t1\n",T[i],c);
+
 		if(c != j-1){/* cada T1 tem de ter j-1 lgações Peer a Tier1s*/
-			printf("Não é comercialmente conexa, pois enm todos os Tier1s tẽm ligações Peer entre si.\n");
-			return;
+			printf("Não é comercialmente conexa, pois nem todos os Tier1s tẽm ligações Peer entre si.\n");
+			return 1;
 		}
 	}
 
 	printf("É comercialmente conexa!\n");
-	return;
+	return 0;
 }

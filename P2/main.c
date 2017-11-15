@@ -16,9 +16,7 @@
 #include "file.h"
 #include "struct.h"
 
-/*global variables*/
-int p[60001];
-int C;
+
 
 void menu(){
 	char buffer[512];
@@ -43,18 +41,17 @@ int main(int argc, char * argv[]){
 
 	menu();
 
-	G = ReadNetwork(argv[1]);
+	G = ReadNetwork(argv[1], T);
 
-	for(i=0; i<70000; i++){
-		if(G->Nodes[i]!= NULL){
-			C += G->Nodes[i]->n_c;
+	//printf("Ñº de links C -> %d\n", C);
+	
+	
+	if(VerifyCycle(G->Nodes, T) !=1 ){/*Se não existirem ciclos*/
+		if(VerifyCommerc(G->Nodes,T) != 1){/*se estiver comercialmente conexa*/
+			printf("hello\n");
 		}
+
 	}
-	printf("Ñº de links C -> %d\n", C);
-	
-	VerifyCommerc(G->Nodes,T);
-	
-	VerifyCycle(G->Nodes, T);
 
 
 
@@ -62,3 +59,5 @@ int main(int argc, char * argv[]){
 	free(G);
 	exit(0);
 }
+
+

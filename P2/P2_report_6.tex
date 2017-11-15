@@ -1,0 +1,206 @@
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[twocolumn]{article} % A4 paper size, default 11pt font size and oneside for equal margins
+\usepackage[margin = 1in]{geometry}
+\usepackage[portuguese]{babel}
+\usepackage{algpseudocode} %para pseudo código
+\usepackage{algorithm}
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+\usepackage{fouriernc} % Use the New Century Schoolbook font
+\usepackage{graphicx}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{document} 
+
+\begin{titlepage} % Suppresses headers and footers on the title page
+
+	\begin{figure}[t]
+	\graphicspath{ {../../} }
+	\includegraphics[width = 8 cm]{logo.png}
+	\centering
+	\end{figure}
+	
+	\centering % Centre everything on the title page
+	
+	\scshape % Use small caps for all text on the title page
+	
+	\vspace*{\baselineskip} % White space at the top of the page
+	
+	%------------------------------------------------
+	%	Title
+	%------------------------------------------------
+	
+	\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal rule
+	\rule{\textwidth}{0.4pt} % Thin horizontal rule
+	
+	\vspace{0.75\baselineskip} % Whitespace above the title
+	
+	{\LARGE 2\textsuperscript{\underline{o}} Projeto:\\Static Analysis of Inter-AS Routing\par} % Title
+	
+	\vspace{0.75\baselineskip} % Whitespace below the title
+	
+	\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal rule
+	\rule{\textwidth}{1.6pt} % Thick horizontal rule
+	
+	\vspace{2\baselineskip} % Whitespace after the title block
+	
+	%------------------------------------------------
+	%	Subtitle
+	%------------------------------------------------
+	
+	 % Subtitle or further description
+	Algoritmia e Desempenho em Redes de Computadores \\ Docente: João Sobrinho
+
+	\vspace*{3\baselineskip} % Whitespace under the subtitle
+	
+	%------------------------------------------------
+	%	Editor(s)
+	%------------------------------------------------
+	
+	
+	\vspace{0.5\baselineskip} % Whitespace before the editors
+	
+	{\scshape\Large Miguel Rodrigues N\textsuperscript{\underline{o}} 76176 \\ Pedro Esteves N\textsuperscript{\underline{o}} 77060 \\} % Editor list
+	Grupo 6 \\
+	
+	\vspace{0.5\baselineskip} % Whitespace below the editor list
+	
+	\vfill % Whitespace between editor names and publisher logo
+	
+	\vspace{0.3\baselineskip} % Whitespace under the publisher logo
+	
+	17/11/2017 % Publication year
+
+\end{titlepage}
+
+%\shipout\null %Blank Page without increasing page number -para imprimir. comentar na versão para entregar.
+
+%----------------------------------------------------------------------------------------
+
+	
+	\section{Introdução}
+
+		Neste segundo mini-projeto são explorados os conceitos de \emph{routing}, fazendo uma análise estática de uma rede de \emph{Autonomous Systems} (AS), simulando o fucnionamento de uma internet e seguindo, de uma forma aproximada, as preferências e regras do protoco BGP (\emph{Border Gateway Protocol}). Através da leitura de um ficheiro de texto que indica as diferentes ligações entre os diferentes nós (ASes), temos como objetivo criar o grafo que a representa e realizar uma análise das suas propriedas.\\
+		\noindent Em primeiro lugar, é feita a verificação da existência de ciclos de clientes, isto  é, se é possível chegar de um nó a si mesmo novamente, mas seguindo apenas ligações do tipo cliente (\emph{Costumer}). Tal não pode acontecer numa rede como esta.\\
+		\noindent Depois, é feita uma análise quanto à sua conectividade: ver se é \emph{Comercialmente Conexa}, isto é, se partindo de um nó é possível chegar a qualquer outro, respeitando as regras referentes aos caminhos possíveis. Numa internet tem de se verificar esta conetividade.\\
+		\noindent Por fim, é necessário verificar quais os caminhos eleitos por todos os nós para chegar a todos os outros nós e produzir estatísticas relativas a esta rede.
+
+
+	\section{Funções e Estruturas}
+		\subsection{Estruturas}
+ 
+			Para representar o grafo, ou seja, a rede de ASes e repetivas ligações, é usado um vetor de ponteiros para nós (\emph{Nodes}), inicializado com 70000 posições, pois temos a informação de que o número não será superior a este (será de aproximadamente $2^{16}$ = 65536), não sendo necessário fazer alocação dinâmica neste caso. Cada uma destas posições apresenta para um nó em específico, cujo identificador é um número (neste caso entre 0 e 70000) e que contem várias informações sobre a AS em questão, como o número de \emph{Providers} (P), de \emph{Peers} (R) e de \emph{Costumers} (C). Em conjunto com as várias informações relevantes da AS, existem três apontadores para listas de adjacência, uma para cada tipo de ligação.\\
+			\noindent Estas listas de adjacência vão conter estruturas do tipo \emph{NodeAdj} que guardam apenas o o ponteiro para a próxima estrutura (ou seja, o próximo vizinho do tipo repetivo à lista de adjacência: C, P ou R) e o número do identificador da AS.
+
+		\subsection{Leitura da Rede}
+
+			De forma a criar a rede, é lido o ficheiro de texto correspondente linha a linha e é feita a alocação dos nós, alocando a AS que é a \emph{tail}, inicializando os vários parâmetros desse nó (como o número de \emph{peers}, de \emph{providers},etc) e a respetiva ligação. Como se sabe que as ligações são dadas de forma correcta e que para cada ligação P é dada uma C e que para cada ligação R é dada outra R, não há problema em alocar apenas uma das AS que aparecem na linha lida. Tendo em conta o tipo de ligação entre as ASes, é criado um nó na lista de adjacência correspondente da \emph{tail} dessa ligação.\\
+
+			\noindent Para criar a ligação é usada a função \emph{AddEdge} que, recebendo o nó de onde a ligação provém, cria essa aresta para a \emph{head} da ligação e insere-a na respetiva lista de adjacência, tendo em conta o tipo de ligação e a informação do nó de destino.No final da alocação são percorridos todos os nós de forma a obter a lista de \emph{Tier1s}, que será útil nas restantes funções.
+
+			\begin{algorithm}[htbp]
+			\caption{AddEdge}
+			\begin{algorithmic}[1]
+				
+				\State type := Tipo de Ligação
+				\State Aloca nó auxiliar Aux
+
+				\If{type == 1}
+					\State Ligação C
+					\State N\_Costumers ++;
+					\State Adiciona Aux a ListaAdj\_C
+				\Else
+					\If{type == 2}
+						\State Ligação R
+						\State N\_Peers ++
+						\State Adiciona Aux a ListaAdj\_R
+					\Else
+						\State Ligação P
+						\State N\_Providers ++
+						\State Adiciona Aux a ListaAdj\_P
+					\EndIf
+				\EndIf
+
+			\end{algorithmic}
+			\end{algorithm}
+
+			\noindent Para que não existam problemas de memória são criadas as funções \emph{FreeGraph} e \emph{FreeAdjList}, que vão percorrer todos os nós do grafo e todas as listas de adjacência desses nós, libertando-os. Assim, essa libertação tem uma complexidade de $\mathcal{O}$(n+m), onde n são os nós e m as arestas. Também a inserção terá esta complexidade.
+
+		\subsection{Verificação de Ciclo de Clientes}
+
+			Para fazer a verificação da existência de ciclos de clientes, são usadas pesquisas em profundiade (DFS - \emph{Depth First Search}), partindo de cada um dos \emph{Tier1s} e usando apenas ligações \emph{Costumer}. Quando uma AS for visitada, é usada uma variáve (\emph{visit}) que não permite que seja visitada outra vez, pois se já foi visitada e não voltou a si mesma então não faz parte de um ciclo, logo não é necessário voltar a entrar nesta AS. Por outro lado, sempre que uma AS faz aprte do caminho que está a ser percorrido pela DFS, tem ativa uma variável (\emph{ciclo}) que a identifica como parte do ciclo, se este existir. Assim, se se voltar a uma AS cuja variável \emph{ciclo} for 1, então é encontrado um ciclo e o programa pode encerrar. Sendo uma DFS, a sua complexidade é dada por $\mathcal{O}$(n+m), onde n são os nós e m as arestas, mas nem todas as arestas serão percorridas, pois basta entar numa AS uma vez e esta pode ter vários ligações até ela.
+
+			\noindent As funções que fazem parte deste algoritmo são \emph{VerifyCycle}, que percorre a lista de T1s para chamar a função que percorre os nós (\emph{DFS}) e verificar se existe ciclo ou não. 
+
+			\begin{algorithm}[htbp]
+			\caption{BLAdhjskd}
+			\begin{algorithmic}[1]
+				
+				\State FALTA ESTE
+				
+			\end{algorithmic}
+			\end{algorithm}
+
+		\subsection{Verificação de Conectividade}
+
+			Tendo em conta as regras descritas no enunciado, para que uma rede seja Comercialmente Conexa, é necessário que todos os nós \emph{Tier1} (T1) sejam \emph{peers} uns dos outros, se não existirão ligações que não serão possíveis (por exemplo, um T1 A só pode chegar a um T1 C se existir um ligação entre eles do tipo R, visto que não podemutilizar várias ligações R nem usar ligações P após ligações C). No entanto, esta condição é, também, suficiente, pois todos os nós que não sejam \emph{Tier1s} vão ter pelo menos uma ligação do tipo P (e respetiva ligação C no sentido contrário), até que eventualmente se chegue a um T1 que, sendo \emph{peer} de todos os outros T1s, vai permitir que exista uma ligação até qualquer outro nó tipo. Se o nó em questão não tiver uma ligação P, isso faz dele um T1, o que leva a que tenha ligações R com todos os outros T1s, pela condição inicial. Sabendo que não existem ciclos de clientes pelo algoritmo anterior, também não existirão ciclos de fornecedor que possam fazer com que o que é aqui descrito não se aplique.\\
+
+			\noindent Assim, basta verificar a existência de ligações \emph{peer} entre todos todos os \emph{Tier1s}. Tendo em conta que nos é dada a garantia de que as ligações no ficheiro de texto são apresentadas de forma correcta, basta verificar o número de ligações R que cada T1 tem com  outros T1s (pois não vão existir ligações repetidas ou em falta, devido à garantia de que as ligações são dadas de forma correcta).\\
+			\noindent Como descrito no algoritmo seguinte, basta guardar a informação de todos os T1s (ou seja, número de ligações P é zero), contá-los e verificar que cada T1 tem N-1 ligações R com outros T1s, sendo N o número de T1s.\\
+
+
+			\begin{algorithm}[htbp]
+			\caption{VerifyCommerc}
+			\begin{algorithmic}[1]
+				
+				\State T := Tier1 array
+				\State N := Number of Tier1s
+
+				\For{All T1 present in T}
+					\State count := 0;
+					\For{All Peers}
+						\If{Peer is a T1}
+							\State count ++;
+						\EndIf
+					\EndFor
+					\If{count != N-1}
+						\State Not all T1s are Peers
+						\State End
+					\EndIf
+				\EndFor
+			\end{algorithmic}
+			\end{algorithm}
+
+			\noindent A complexidade deste algoritmo é de $\mathcal{O}$($n^(2)$), no entanto, n é o número de nós T1, que é um número bastante reduzido de nós, portanto não é problemático.
+
+		\subsection{Procura de Caminhos}
+			texto bla\\
+			bla\\
+			bla\\
+
+			\begin{algorithm}[htbp]
+			\caption{gjfdksl}
+			\begin{algorithmic}[1]
+				
+				\State FALTA ESTE
+
+			\end{algorithmic}
+			\end{algorithm}
+
+
+		\subsection{Estatísticas}
+			Estatisitcas BlaBlaBla \\
+
+			\noindent Outra estatística interessante a apresentar e a analisar seria o número de ASes pelas quais um pacote tem de viajar para ir de um nó até ao outro e quais os tipos de ligações que tem de percorrer até chegar ao seu destino. Tal implementação poderia ter sido feita no algoritmo que informa qual o melhor caminho a percorrer pela preferência de tipo de caminho. Podia, ainda, ser acrescentada a escolha do caminho mais curto, de forma a ser uma representação mais fiel do BGP, acrescentando a condição de que, para além de escolher o caminho preferencial, escolher o que apresentar o menor número número de saltos.
+
+	\section{Conclusão}
+	
+\end{document}

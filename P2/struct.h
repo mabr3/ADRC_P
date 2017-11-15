@@ -44,8 +44,8 @@ void FreeAdjList(NodeAdj * No);
 void FreeGraph(Graph * G);
 
 
-void VerifyCommerc(Node * Nodes[], int T[]);
-void VerifyCycle(Node * Nodes[], int T[]);
+int VerifyCommerc(Node * Nodes[], int T[]);
+int VerifyCycle(Node * Nodes[], int T[]);
 int DFS(Node * Nodes[], Node * No);
 
 #endif

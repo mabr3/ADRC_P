@@ -98,3 +98,10 @@ void VerifyCommerc(Node * Nodes[], int T[]){
 		}
 		search = search->next;	
 	}
+
+
+\For{Every Node != NULL}
+					\If{Number of Providers == 0}
+						\State Save Node in T1 vector, T.
+					\EndIf
+				\EndFor

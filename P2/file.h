@@ -11,5 +11,5 @@
 *********************************************/
 #include "struct.h"
 
-Graph * ReadNetwork(char * nome);
+Graph * ReadNetwork(char * nome, int T[]);
 

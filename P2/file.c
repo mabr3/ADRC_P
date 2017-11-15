@@ -23,12 +23,13 @@
 * 
 *********************************************/
 
-Graph * ReadNetwork(char * nome){
+Graph * ReadNetwork(char * nome, int T[]){
 
 	int head = 0;
 	int tail = 0;
 	int type = 0;
 	int i = 0;
+	int j = 0;
 	Graph * G;
 
 	FILE * fp;
@@ -43,7 +44,6 @@ Graph * ReadNetwork(char * nome){
 	G->first = -1;
 	G->n = 0;
 
-	//G->Nodes = (Node **) malloc(60001 * sizeof (Node *));
 	for(i=0;i<70000; i++){
 		G->Nodes[i] = NULL;
 	}
@@ -68,6 +68,15 @@ Graph * ReadNetwork(char * nome){
 	}
 
 	fclose(fp);
+
+	for(i=0; i<70000; i++){ /*verificar quais são os Tier1s existentes (não têm providers)*/
+		if(G->Nodes[i]!= NULL){
+			if(G->Nodes[i]-> n_p == 0){
+				T[j] = i;
+				j++;
+			}
+		}
+	}
 
 	return G;
 }
