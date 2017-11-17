@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.9.22)  17 NOV 2017 00:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.9.22)  17 NOV 2017 23:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -773,56 +773,56 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 (./P2_report_6.aux)
 \openout1 = `P2_report_6.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for FML/fncmi/m/it on input line 21.
-LaTeX Font Info:    Try loading font information for FML+fncmi on input line 21
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for FML/fncmi/m/it on input line 22.
+LaTeX Font Info:    Try loading font information for FML+fncmi on input line 22
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/fouriernc/fmlfncmi.fd
 File: fmlfncmi.fd 2005/12/20 Fontinst v1.928 font definitions for FML/fncmi.
 )
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for FMS/fncm/m/n on input line 21.
-LaTeX Font Info:    Try loading font information for FMS+fncm on input line 21.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for FMS/fncm/m/n on input line 22.
+LaTeX Font Info:    Try loading font information for FMS+fncm on input line 22.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/fouriernc/fmsfncm.fd
 File: fmsfncm.fd 2005/12/20 Fontinst v1.928 font definitions for FMS/fncm.
 )
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for FMX/futm/m/n on input line 21.
-LaTeX Font Info:    Try loading font information for FMX+futm on input line 21.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for FMX/futm/m/n on input line 22.
+LaTeX Font Info:    Try loading font information for FMX+futm on input line 22.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/fourier/fmxfutm.fd
 File: fmxfutm.fd futm-extension
 )
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 21.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 21.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 22.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 22.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Try loading font information for T1+fnc on input line 21.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Try loading font information for T1+fnc on input line 22.
 
 (/usr/share/texlive/texmf-dist/tex/latex/fouriernc/t1fnc.fd
 File: t1fnc.fd 2005/12/13 scaled font definitions for T1/fnc.
 )
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
-(Font)              scaled to size 9.29993pt on input line 21.
+(Font)              scaled to size 9.29993pt on input line 22.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -847,7 +847,7 @@ LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
 * \footskip=30.0pt
 * \marginparwidth=4.0pt
 * \marginparsep=10.0pt
-* \columnsep=10.0pt
+* \columnsep=18.06749pt
 * \skip\footins=9.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
@@ -918,146 +918,179 @@ e
 <logo.png, id=1, 497.86pt x 212.795pt>
 File: logo.png Graphic file (type png)
  <use logo.png>
-Package pdftex.def Info: logo.png used on input line 27.
+Package pdftex.def Info: logo.png used on input line 28.
 (pdftex.def)             Requested size: 227.62204pt x 97.29268pt.
 LaTeX Font Info:    Font shape `T1/fnc/m/sc' will be
-(Font)              scaled to size 9.29993pt on input line 33.
+(Font)              scaled to size 9.29993pt on input line 34.
 LaTeX Font Info:    Font shape `T1/fnc/m/sc' will be
-(Font)              scaled to size 16.07027pt on input line 46.
+(Font)              scaled to size 16.07027pt on input line 47.
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
-(Font)              scaled to size 16.07027pt on input line 46.
+(Font)              scaled to size 16.07027pt on input line 47.
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
-(Font)              scaled to size 11.15991pt on input line 46.
+(Font)              scaled to size 11.15991pt on input line 47.
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
-(Font)              scaled to size 8.36993pt on input line 46.
+(Font)              scaled to size 8.36993pt on input line 47.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 15.89755pt on input line 46.
+(Font)              scaled to size 15.89755pt on input line 47.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 11.03998pt on input line 46.
+(Font)              scaled to size 11.03998pt on input line 47.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 8.27998pt on input line 46.
-LaTeX Font Info:    Try loading font information for FML+fncm on input line 46.
+(Font)              scaled to size 8.27998pt on input line 47.
+LaTeX Font Info:    Try loading font information for FML+fncm on input line 47.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/fouriernc/fmlfncm.fd
 File: fmlfncm.fd 2005/12/20 Fontinst v1.928 font definitions for FML/fncm.
 )
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 15.89755pt on input line 46.
+(Font)              scaled to size 15.89755pt on input line 47.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 11.03998pt on input line 46.
+(Font)              scaled to size 11.03998pt on input line 47.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 8.27998pt on input line 46.
+(Font)              scaled to size 8.27998pt on input line 47.
 LaTeX Font Info:    Font shape `T1/fnc/m/sc' will be
-(Font)              scaled to size 11.15991pt on input line 46.
+(Font)              scaled to size 11.15991pt on input line 47.
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
-(Font)              scaled to size 6.50995pt on input line 46.
+(Font)              scaled to size 6.50995pt on input line 47.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 6.43999pt on input line 46.
+(Font)              scaled to size 6.43999pt on input line 47.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 6.43999pt on input line 46.
+(Font)              scaled to size 6.43999pt on input line 47.
 LaTeX Font Info:    Font shape `T1/fnc/m/sc' will be
-(Font)              scaled to size 13.39188pt on input line 71.
+(Font)              scaled to size 13.39188pt on input line 72.
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
-(Font)              scaled to size 13.39188pt on input line 71.
+(Font)              scaled to size 13.39188pt on input line 72.
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
-(Font)              scaled to size 7.43994pt on input line 71.
+(Font)              scaled to size 7.43994pt on input line 72.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 13.24796pt on input line 71.
+(Font)              scaled to size 13.24796pt on input line 72.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 9.19998pt on input line 71.
+(Font)              scaled to size 9.19998pt on input line 72.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 7.35999pt on input line 71.
+(Font)              scaled to size 7.35999pt on input line 72.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 13.24796pt on input line 71.
+(Font)              scaled to size 13.24796pt on input line 72.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 9.19998pt on input line 71.
+(Font)              scaled to size 9.19998pt on input line 72.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 7.35999pt on input line 71.
+(Font)              scaled to size 7.35999pt on input line 72.
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
-(Font)              scaled to size 7.06795pt on input line 71.
+(Font)              scaled to size 7.06795pt on input line 72.
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
-(Font)              scaled to size 5.57996pt on input line 71.
+(Font)              scaled to size 5.57996pt on input line 72.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 6.99199pt on input line 71.
+(Font)              scaled to size 6.99199pt on input line 72.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 5.51999pt on input line 71.
+(Font)              scaled to size 5.51999pt on input line 72.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 6.99199pt on input line 71.
+(Font)              scaled to size 6.99199pt on input line 72.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 5.51999pt on input line 71.
+(Font)              scaled to size 5.51999pt on input line 72.
  [1
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./logo.png>]
 LaTeX Font Info:    Font shape `T1/fnc/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/fnc/b/n' tried instead on input line 89.
+(Font)              Font shape `T1/fnc/b/n' tried instead on input line 90.
 LaTeX Font Info:    Font shape `T1/fnc/b/n' will be
-(Font)              scaled to size 13.39188pt on input line 89.
+(Font)              scaled to size 13.39188pt on input line 90.
 LaTeX Font Info:    Font shape `T1/fnc/m/it' will be
-(Font)              scaled to size 9.29993pt on input line 91.
+(Font)              scaled to size 9.29993pt on input line 92.
 LaTeX Font Info:    Font shape `T1/fnc/bx/n' in size <12> not available
-(Font)              Font shape `T1/fnc/b/n' tried instead on input line 98.
+(Font)              Font shape `T1/fnc/b/n' tried instead on input line 99.
 LaTeX Font Info:    Font shape `T1/fnc/b/n' will be
-(Font)              scaled to size 11.15991pt on input line 98.
+(Font)              scaled to size 11.15991pt on input line 99.
 
-Underfull \hbox (badness 10000) in paragraph at lines 105--106
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
 
  []
 
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 LaTeX Font Info:    Font shape `T1/fnc/bx/n' in size <10> not available
-(Font)              Font shape `T1/fnc/b/n' tried instead on input line 110.
+(Font)              Font shape `T1/fnc/b/n' tried instead on input line 111.
 LaTeX Font Info:    Font shape `T1/fnc/b/n' will be
-(Font)              scaled to size 9.29993pt on input line 110.
+(Font)              scaled to size 9.29993pt on input line 111.
+
+Underfull \hbox (badness 10000) in paragraph at lines 140--141
+
+ []
+
 [1
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 165--166
+Underfull \hbox (badness 10000) in paragraph at lines 166--167
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 167--169
+Underfull \hbox (badness 10000) in paragraph at lines 168--170
 
  []
 
 
-Underfull \hbox (badness 1253) in paragraph at lines 196--197
-\T1/fnc/m/n/10 De forma a sa-ber to-dos os ca-mi-nhos para to-dos
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 196--197
+Underfull \hbox (badness 10000) in paragraph at lines 197--198
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 198--199
+Underfull \hbox (badness 10000) in paragraph at lines 199--200
 
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 218--219
+Underfull \hbox (badness 10000) in paragraph at lines 219--220
 
  []
 
 
-Underfull \hbox (badness 1460) in paragraph at lines 220--221
-\T1/fnc/m/n/10 que o al-go-ritmo apre-senta uma com-ple-xi-dade de
+Underfull \hbox (badness 1755) in paragraph at lines 221--222
+\T1/fnc/m/n/10 uma re-pre-sen-ta-ção mais fiel do al-go-ritmo BGP,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 220--221
+Underfull \hbox (badness 1454) in paragraph at lines 221--222
+\T1/fnc/m/n/10 ter-se-ia em conta, tam-bém, o nú-mero de hops
+ []
+
+
+Underfull \hbox (badness 1253) in paragraph at lines 221--222
+\T1/fnc/m/n/10 de cada ca-mi-nho, es-co-lhendo sem-pre o ca-mi-nho
+ []
+
+
+Underfull \hbox (badness 1931) in paragraph at lines 221--222
+\T1/fnc/m/n/10 com me-nor nú-mero de hops (den-tro do mesmo
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
 
  []
 
 
-Underfull \hbox (badness 1565) in paragraph at lines 224--225
-\T1/fnc/m/n/10 Através da aná-lise feita tendo em conta ape-nas
+Underfull \hbox (badness 1838) in paragraph at lines 252--253
+\T1/fnc/m/n/10 Neste se-gundo mini-projecto foi pos-sí-vel ga-nhar
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 224--225
+Underfull \hbox (badness 1259) in paragraph at lines 252--253
+\T1/fnc/m/n/10 ca-pa-ci-dade na aná-lise de um pro-blema real ca-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 252--253
+
+ []
+
+
+Underfull \hbox (badness 1342) in paragraph at lines 254--255
+\T1/fnc/m/n/10 as suas ca-pa-ci-da-des de forma efi-ci-ente. Tendo
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 254--255
 
  []
 
@@ -1065,7 +1098,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 224--225
 Here is how much of TeX's memory you used:
  4411 strings out of 493029
  59275 string characters out of 6136234
- 132089 words of memory out of 5000000
+ 133101 words of memory out of 5000000
  7833 multiletter control sequences out of 15000+600000
  62817 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1076,7 +1109,7 @@ Here is how much of TeX's memory you used:
 share/texlive/texmf-dist/fonts/type1/urw/ncntrsbk/uncb8a.pfb></usr/share/texliv
 e/texmf-dist/fonts/type1/urw/ncntrsbk/uncr8a.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/urw/ncntrsbk/uncri8a.pfb>
-Output written on P2_report_6.pdf (4 pages, 75294 bytes).
+Output written on P2_report_6.pdf (4 pages, 76186 bytes).
 PDF statistics:
  41 PDF objects out of 1000 (max. 8388607)
  27 compressed objects within 1 object stream

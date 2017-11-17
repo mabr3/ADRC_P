@@ -240,12 +240,12 @@ void Path4(Node * Nodes[], Node * No){
 }
 
 /********************************************
-* AddCpaths():
+* AddCpaths():Adiciona os caminhos C e os 
+* caminhos R que possam existir por ligação
+* aos nós com caminho C.
 * 
 * 
 *********************************************/
-
-
 
 void AddCpaths(Node * Nodes[], Node * No){
 	NodeAdj * search = NULL;
@@ -286,16 +286,129 @@ void AddCpaths(Node * Nodes[], Node * No){
 * 
 *********************************************/
 
-void cleanVisits(Node * Nodes[], int C[]){
+void cleanVisits(Node * Nodes[], int C[], int N[]){
 	for(int i=0; i<70000; i++){ 
-		if(Nodes[i] != NULL){// && Nodes[i]->path >0 && Nodes[i]->path <4){
+		if(Nodes[i] != NULL){
 			Nodes[i]->visit = 0;
 
 			if(Nodes[i]->path > 0 && Nodes[i]->path <4 ){
 				C[Nodes[i]->path -1]++;
 			}
+			if(Nodes[i]->nhops == -1){
+					C[3]++;
+				}
+			N[Nodes[i]->nhops]++;
 			Nodes[i]->path = 3;
 			Nodes[i]->nhops =-1;	
 		}
 	}
+}
+
+
+
+
+/***************************************************************************************************************************************************************************/
+/**************************************************************************************NHOPS********************************************************************************/
+
+/********************************************
+* PathF(): Versão da função para encontrar
+* caminho onde saõ tidos em conta os nexthops.
+*
+*
+* 
+*********************************************/
+void PathF(Node * Nodes[], Node * No){
+
+	Cpaths(Nodes, No);
+	Rpaths(Nodes, No);
+	Ppaths(Nodes, No);
+}
+
+void Cpaths(Node * Nodes[], Node * No){
+	NodeAdj * aux = NULL;
+	NodeAdj * search = NULL;
+
+	No->visit=1;
+
+	aux = No->AdjList_P;
+	
+	while(aux!=NULL){
+		if(Nodes[aux->AS]->path >1){
+			Nodes[aux->AS]->path = 1;
+			Nodes[aux->AS]->nhops = No->nhops +1;
+		}else{
+			if(Nodes[aux->AS]->path == 1){
+				Nodes[aux->AS]->nhops = (Nodes[aux->AS]->nhops > No->nhops +1) ? No->nhops +1 : Nodes[aux->AS]->nhops;
+			}
+		}
+
+			
+		/*únicos nós com ligação R são aqueles que têm uma ligaçao peer com um nó com caminho C ou com o nó destino*/
+		search = Nodes[aux->AS]->AdjList_R;
+
+		while(search != NULL){
+			if(Nodes[search->AS]->path == 3){
+				Nodes[search->AS]->path = 2;
+				Nodes[search->AS]->nhops = Nodes[aux->AS]->nhops +1;
+			}else{
+				if(Nodes[search->AS]->path == 2){
+					Nodes[search->AS]->nhops = (Nodes[search->AS]->nhops > Nodes[aux->AS]->nhops +1) ? Nodes[aux->AS]->nhops +1 :Nodes[search->AS]->nhops;
+				}
+			}
+			Ppaths(Nodes, Nodes[search->AS]);	
+			search = search->next;
+		} 
+		Ppaths(Nodes, Nodes[aux->AS]);
+		Cpaths(Nodes, Nodes[aux->AS]);
+		aux=aux->next;
+	}
+
+}
+
+void Rpaths(Node * Nodes[], Node * No){
+	NodeAdj * aux = NULL;
+	No->visit = 1;
+
+	aux = No->AdjList_R;
+
+	while(aux != NULL){
+		if(Nodes[aux->AS]->path == 3){
+			Nodes[aux->AS]->path = 2;
+			Nodes[aux->AS]->nhops = No->nhops + 1;
+		}
+		if(Nodes[aux->AS]->path == 2){
+			Nodes[aux->AS]->nhops = (Nodes[aux->AS]->nhops > No->nhops +1) ? No->nhops +1 : Nodes[aux->AS]->nhops;
+		}
+
+		Ppaths(Nodes, Nodes[aux->AS]);
+		aux=aux->next;
+	}	
+
+}
+
+void Ppaths(Node * Nodes[], Node * No){
+	NodeAdj * aux = NULL;
+	No->visit = 1;
+	aux = No->AdjList_C;
+	//printf("entrei no ppath do nó %d e o meu proximo C é o nó %d, cuja visit é %d\n", No->number, No->AdjList_C->AS, Nodes[aux->AS]->visit);
+
+	while(aux != NULL){
+		if(Nodes[aux->AS]->path == 3){
+			if(Nodes[aux->AS]->nhops == -1){
+				Nodes[aux->AS]->nhops = No->nhops +1;
+			}else{
+				if(Nodes[aux->AS]->nhops > No->nhops + 1){
+					Nodes[aux->AS]->nhops = No->nhops + 1;
+					No->visit=0;
+				}
+			}
+
+		}
+
+		if(Nodes[aux->AS]->visit != 1){
+			Ppaths(Nodes, Nodes[aux->AS]);
+		}		
+		aux=aux->next;
+	}
+	No->visit = 0;
 }

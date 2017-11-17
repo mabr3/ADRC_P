@@ -36,10 +36,12 @@ int main(int argc, char * argv[]){
 	int j = 0;
 	
 
-	int C[3];
+	int C[4];
 	C[0] = 0;
 	C[1] = 0;
 	C[2] = 0;
+	C[3] = 0;
+	int NH[100]= {0};
 
 	if(argc != 2){
 		printf("Erro nos argumentos a usar. Saíndo.\n");
@@ -53,47 +55,31 @@ int main(int argc, char * argv[]){
 	
 	if(VerifyCycle(G->Nodes, T) !=1 ){/*Se não existirem ciclos*/
 		if(VerifyCommerc(G->Nodes,T) != 1){/*se estiver comercialmente conexa*/
-			printf("Tudo ok\n");
-		}
-	}
-
-	cleanVisits(G->Nodes, C);
-	C[0]=C[1]=C[2]=0;
-	for(i=0;i<70000;i++){
-		if(G->Nodes[i] != NULL){
-			Path4(G->Nodes, G->Nodes[i]);
-			G->Nodes[i]->path = 0;
-			for(j=0; j<100; j++){
-				if(G->Nodes[j] != NULL && j!=i){
-					printf("Do nó %d para o nó %d vou por caminho %d por %d hops\n", j, i, G->Nodes[j]->path, G->Nodes[j]->nhops);
-				}
-			}
-
-			cleanVisits(G->Nodes, C);
+		cleanVisits(G->Nodes, C, NH);
+		
+		
+		C[0]=C[1]=C[2]=C[3]=0;	
+		for(i=0;i<70000;i++){
+			if(G->Nodes[i] != NULL){
+				G->Nodes[i]->path = 0;
+				G->Nodes[i]->nhops = 0;
+				printf("%d\n", i);	
+				//PathF(G->Nodes, G->Nodes[i]);
+				Path4(G->Nodes, G->Nodes[i]);
+			cleanVisits(G->Nodes, C, NH);
 		}
 	}
 
 
 
-	printf("\nNumeros: C = %d , R = %d , P = %d.\n",C[0],C[1], C[2]);
-	printf("Total de caminhos: %d.\n", C[0] + C[1] + C[2]);
-	printf("Percentagem de caminhos C: %f%%\n", (100.0 * C[0])/(C[0] + C[1] + C[2]));
-	printf("Percentagem de caminhos R: %f%%\n", (100.0 * C[1])/(C[0] + C[1] + C[2]));
-	printf("Percentagem de caminhos P: %f%%\n", (100.0 * C[2])/(C[0] + C[1] + C[2]));
-	int S =0;
-	int T=0;
-
-
-	/*for(i=0;i<70000;i++){
-		if(G->Nodes[i] != NULL){
-			if(G->Nodes[i]->n_p==0){
-				T++;
-			}
-			if(G->Nodes[i]->n_c==0){
-				S++;
-			}
+		printf("\nNumeros: C = %d , R = %d , P = %d.\n",C[0],C[1], C[2]);
+		printf("Total de caminhos: %d.\n", C[0] + C[1] + C[2]);
+		printf("Percentagem de caminhos C: %f%%\n", (100.0 * C[0])/(C[0] + C[1] + C[2]));
+		printf("Percentagem de caminhos R: %f%%\n", (100.0 * C[1])/(C[0] + C[1] + C[2]));
+		printf("Percentagem de caminhos P: %f%%\n", (100.0 * C[2])/(C[0] + C[1] + C[2]));
 		}
-	}*/
+	}
+
 
 	FreeGraph(G);
 	free(G);

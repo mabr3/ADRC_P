@@ -48,7 +48,15 @@ int VerifyCommerc(Node * Nodes[], int T[]);
 int VerifyCycle(Node * Nodes[], int T[]);
 int DFS(Node * Nodes[], Node * No);
 void Path4(Node * Nodes[], Node * No);
-void cleanVisits(Node * Nodes[], int C[]);
+void cleanVisits(Node * Nodes[], int C[], int N[]);
 void AddCpaths(Node * Nodes[], Node * No);
+
+
+/*funções para contar com o número de hops*/
+
+void PathF(Node * Nodes[], Node * No);
+void Cpaths(Node * Nodes[], Node * No);
+void Rpaths(Node * Nodes[], Node * No);
+void Ppaths(Node * Nodes[], Node * No);
 
 #endif

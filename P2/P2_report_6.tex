@@ -4,6 +4,7 @@
 %----------------------------------------------------------------------------------------
 
 \documentclass[twocolumn]{article} % A4 paper size, default 11pt font size and oneside for equal margins
+\setlength{\columnsep}{0.25in}
 \usepackage[margin = 1in]{geometry}
 \usepackage[portuguese]{babel}
 \usepackage{algpseudocode} %para pseudo código
@@ -136,7 +137,7 @@
 
 		\subsection{Verificação de Ciclo de Clientes}
 
-			Para fazer a verificação da existência de ciclos de clientes, são usadas pesquisas em profundiade (DFS - \emph{Depth First Search}), partindo de cada um dos \emph{Tier1s} e usando apenas ligações \emph{Costumer}. Quando uma AS for visitada, é usada uma variáve (\emph{visit}) que não permite que seja visitada outra vez, pois se já foi visitada e não voltou a si mesma então não faz parte de um ciclo, logo não é necessário voltar a entrar nesta AS. Por outro lado, sempre que uma AS faz aprte do caminho que está a ser percorrido pela DFS, tem ativa uma variável (\emph{ciclo}) que a identifica como parte do ciclo, se este existir. Assim, se se voltar a uma AS cuja variável \emph{ciclo} for 1, então é encontrado um ciclo e o programa pode encerrar. Sendo uma DFS, a sua complexidade é dada por $\mathcal{O}$(n+m), onde n são os nós e m as arestas, mas nem todas as arestas serão percorridas, pois basta entar numa AS uma vez e esta pode ter vários ligações até ela.
+			Para fazer a verificação da existência de ciclos de clientes, são usadas pesquisas em profundiade (DFS - \emph{Depth First Search}), partindo de cada um dos \emph{Tier1s} e usando apenas ligações \emph{Costumer}. Quando uma AS for visitada, é usada uma variáve (\emph{visit}) que não permite que seja visitada outra vez, pois se já foi visitada e não voltou a si mesma então não faz parte de um ciclo, logo não é necessário voltar a entrar nesta AS. Por outro lado, sempre que uma AS faz aprte do caminho que está a ser percorrido pela DFS, tem ativa uma variável (\emph{ciclo}) que a identifica como parte do ciclo, se este existir. Assim, se se voltar a uma AS cuja variável \emph{ciclo} seja 1, então é encontrado um ciclo e o programa pode encerrar. Sendo uma DFS, a sua complexidade é dada por $\mathcal{O}$(n+m), onde n são os nós e m as arestas, mas nem todas as arestas serão percorridas, pois basta entar numa AS uma vez e esta pode ter vários ligações até ela.\\
 
 			\noindent As funções que fazem parte deste algoritmo são \emph{VerifyCycle}, que percorre a lista de T1s para chamar a função que percorre os nós (\emph{DFS}) e verificar se existe ciclo ou não. 
 
@@ -217,13 +218,15 @@
 
 			\noindent Este algoritmo é repetido N vezes, onde N é o número de ASes existentes, de forma a obter estatísticas a apresentar sobre a rede toda.\\
 
-			\noindent Usando este algoritmo, é possível saber quais são os tipos de caminhos a ser usados de forma eficiente, obtendo-os em menos de cinco minutos, sendo que o algoritmo apresenta uma complexidade de $\mathcal{O}$(blablabla) la blfdmdlf. No entanto, embora este algoritmo cumpra aquilo que é pedido no enunciado do projeto, para que fosse uma representação mais fiel do algoritmo BGP, ter-se-ia em conta, também, o número de hops de cada caminho, escolhendo sempre o caminho com menor número de hops (dentro do mesmo tipo de caminho).\\
+			\noindent Usando este algoritmo, é possível saber quais são os tipos de caminhos a ser usados de forma eficiente, obtendo-os em menos de cinco minutos, sendo que o algoritmo apresenta uma complexidade de $\mathcal{O}$(n + m), onde n é o número de nós com caminhos P e m as respetivas arestas entre eles e entre os seus pares.Para toda a rede, será $\mathcal{O}$($n^{2}$) No entanto, embora este algoritmo cumpra aquilo que é pedido no enunciado do projeto, para que fosse uma representação mais fiel do algoritmo BGP, ter-se-ia em conta, também, o número de hops de cada caminho, escolhendo sempre o caminho com menor número de hops (dentro do mesmo tipo de caminho). Esse algoritmo apresentaria uma complexidade e tempo de execução bastante superior.\\
 
 
 		\subsection{Estatísticas}
-			Através da análise feita tendo em conta apenas as preferências de caminho (C > R > P), pela análise da rede dada em \emph{LargeNetwork.txt}, contam-se 1,933,668,702 caminhos ($\approx$ $1.9\times 10$$^{9}$), sendo que estão divididos da forma apresentada na Tabela~\ref{Tabela1}.\\
+			Através da análise feita tendo em conta apenas as preferências de caminho (C > R > P), pela análise da rede dada em \emph{LargeNetwork.txt}, contam-se 1,933,668,702 caminhos ($\approx$ $1.9\times 10$$^{9}$), sendo que estão divididos da forma apresentada na Tabela~\ref{Tabela1}.
+			
+			\vfill
 
-			\begin{table}[ht]
+			\begin{table}[htbp]
 				\caption{Distribuição dos caminhos na rede fornecida}
 				\begin{center}
 					\begin{tabular}{|c||c||c|}
@@ -241,10 +244,13 @@
 				\label{Tabela1}
 			\end{table}
 
-			\noindent É esperado que assim seja, pois há um número muito maior de \emph{stubs} e de nós intermédios que de T1s. Em média, cada nó 
+			\noindent É esperado que assim seja, pois há um número muito maior de \emph{stubs} e de nós intermédios que de T1s, portanto a maioridade dos caminhos serão caminhos em que é necessário recorrer a ASes que sejam fornecedoras do nó em questão (88,15\% das vezes).
 
 			\noindent Outra estatística interessante a apresentar e a analisar seria o número de ASes pelas quais um pacote tem de viajar para ir de um nó até ao outro e quais os tipos de ligações que tem de percorrer até chegar ao seu destino. Tal implementação poderia ter sido feita no algoritmo que informa qual o melhor caminho a percorrer pela preferência de tipo de caminho. Podia, ainda, ser acrescentada a escolha do caminho mais curto, de forma a ser uma representação mais fiel do BGP, acrescentando a condição de que, para além de escolher o caminho preferencial, escolher o que apresentar o menor número número de saltos.
 
 	\section{Conclusão}
+		Neste segundo mini-projecto foi possível ganhar capacidade na análise de um problema real caracterizado por alguma complexidade, no qual foi importante saber correlacionar as especificações do problema com alguns algoritmos apresentados nas aulas teóricas referentes a grafos.\\
+
+		\noindent Tivemos a oportunidade de compreender de forma extensiva o algoritmo DFS e a sua implementação prática. Houve ainda a necessidade de alterar o comportamento típico da DFS de forma a aproveitar as suas capacidades de forma eficiente. Tendo impacto na performance do programa, reduzindo o tempo de execução e omitindo tarefas redundantes.\\
 	
 \end{document}
