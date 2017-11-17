@@ -105,3 +105,107 @@ void VerifyCommerc(Node * Nodes[], int T[]){
 						\State Save Node in T1 vector, T.
 					\EndIf
 				\EndFor
+
+
+
+
+void DFS2(Node * Nodes[], Node * No, int rule){
+	/*Sempre que rule = 0 o c2p é possível. Se já existir um p2p ou p2c, deixa de ser possível*/
+
+	NodeAdj * search = NULL;
+	No->visit = 1;
+
+
+
+	if(rule == 0){
+		search = No->AdjList_P;
+		
+		while(search != NULL){
+			if(Nodes[search->AS]->path != 1){
+				//pathType[search->AS]=1;
+				Nodes[search->AS]->path =1;
+				DFS2(Nodes, Nodes[search->AS], rule);
+			}
+			if(Nodes[search->AS]->visit == 0){
+				DFS2(Nodes, Nodes[search->AS], rule);
+			}
+			search = search->next;
+		}
+		search = No->AdjList_R;
+
+		while(search != NULL){
+			if(Nodes[search->AS]->path > 2){
+				//pathType[search->AS]=2;
+				Nodes[search->AS]->path =2;	
+			}
+				DFS2(Nodes, Nodes[search->AS], 1);
+			if(Nodes[search->AS]->visit == 0){
+				DFS2(Nodes, Nodes[search->AS], 1);
+			}
+			search = search->next;
+		}
+		search = No->AdjList_C;
+
+		while (search != NULL) {
+			if(Nodes[search->AS]->path > 3){
+				//pathType[search->AS]=3;
+				Nodes[search->AS]->path =3;
+			}
+			if(Nodes[search->AS]->visit == 0){
+				DFS2(Nodes, Nodes[search->AS], 1);
+			}
+			search = search->next;
+		}
+	}else if(rule == 1){
+		search = No->AdjList_C;
+		while (search != NULL) {
+			if(Nodes[search->AS]->path > 3){
+				//pathType[search->AS]=3;
+				Nodes[search->AS]->path =3;
+			}
+			if(Nodes[search->AS]->visit == 0){
+				DFS2(Nodes, Nodes[search->AS], 1);
+			}
+			search = search->next;
+		}
+	}
+}
+
+/********************************************
+* VerifyCommerc(): Verifica se é comercialmente
+* conexa, recorrendo à análise dos nós que são
+* Tier1s e as suas conexões Peer.
+* 
+* 
+*********************************************/
+
+void DFS3(Node * Nodes[], Node * No){
+	/*Sempre que rule = 0 o c2p é possível. Se já existir um p2p ou p2c, deixa de ser possível*/
+
+	NodeAdj * search = NULL;
+	No->visit = 1;
+
+	search = No->AdjList_R;
+
+	while(search != NULL){
+		if(Nodes[search->AS]->path > 2){
+			Nodes[search->AS]->path = 2;
+		}
+
+		search = search->next;
+	}
+
+	search = No->AdjList_P;
+
+	while(search != NULL){
+		if(No->path != 1){
+			Nodes[search->AS]->path = 1;
+			DFS3(Nodes, Nodes[search->AS]);
+		}
+		if(Nodes[search->AS]->visit == 0){
+			DFS3(Nodes,Nodes[search->AS]);
+		}
+
+		search = search->next;
+	}	
+}

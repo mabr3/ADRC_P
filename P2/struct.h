@@ -17,7 +17,7 @@ typedef struct Node{
 		int visit;
 		int path;
 		int ciclo;
-
+		int nhops;
 		int n_c;
 		int n_r;
 		int n_p;
@@ -47,5 +47,8 @@ void FreeGraph(Graph * G);
 int VerifyCommerc(Node * Nodes[], int T[]);
 int VerifyCycle(Node * Nodes[], int T[]);
 int DFS(Node * Nodes[], Node * No);
+void Path4(Node * Nodes[], Node * No);
+void cleanVisits(Node * Nodes[], int C[]);
+void AddCpaths(Node * Nodes[], Node * No);
 
 #endif

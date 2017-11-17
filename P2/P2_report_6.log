@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.9.22)  15 NOV 2017 16:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.9.22)  17 NOV 2017 00:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1012,45 +1012,74 @@ LaTeX Font Info:    Font shape `T1/fnc/b/n' will be
 [1
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 154--155
+Underfull \hbox (badness 10000) in paragraph at lines 165--166
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 156--158
+Underfull \hbox (badness 10000) in paragraph at lines 167--169
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 185--188
+Underfull \hbox (badness 1253) in paragraph at lines 196--197
+\T1/fnc/m/n/10 De forma a sa-ber to-dos os ca-mi-nhos para to-dos
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 200--201
+Underfull \hbox (badness 10000) in paragraph at lines 198--199
 
  []
 
-[2] [3
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
 
-] (./P2_report_6.aux) ) 
+ []
+
+
+Underfull \hbox (badness 1460) in paragraph at lines 220--221
+\T1/fnc/m/n/10 que o al-go-ritmo apre-senta uma com-ple-xi-dade de
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 220--221
+
+ []
+
+
+Underfull \hbox (badness 1565) in paragraph at lines 224--225
+\T1/fnc/m/n/10 Através da aná-lise feita tendo em conta ape-nas
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
+
+ []
+
+[3] (./P2_report_6.aux) ) 
 Here is how much of TeX's memory you used:
- 4399 strings out of 493029
- 59104 string characters out of 6136234
- 132081 words of memory out of 5000000
- 7821 multiletter control sequences out of 15000+600000
+ 4411 strings out of 493029
+ 59275 string characters out of 6136234
+ 132089 words of memory out of 5000000
+ 7833 multiletter control sequences out of 15000+600000
  62817 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,6n,32p,1143b,298s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.e
-nc}</usr/share/texlive/texmf-dist/fonts/type1/public/fourier/fourier-mcl.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/urw/ncntrsbk/uncb8a.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/urw/ncntrsbk/uncr8a.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/urw/ncntrsbk/uncri8a.pfb>
-Output written on P2_report_6.pdf (4 pages, 68558 bytes).
+ 37i,7n,32p,1138b,298s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r
+.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/fourier/fourier-mcl.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/urw/ncntrsbk/uncb8a.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/urw/ncntrsbk/uncr8a.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/urw/ncntrsbk/uncri8a.pfb>
+Output written on P2_report_6.pdf (4 pages, 75294 bytes).
 PDF statistics:
- 37 PDF objects out of 1000 (max. 8388607)
- 24 compressed objects within 1 object stream
+ 41 PDF objects out of 1000 (max. 8388607)
+ 27 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

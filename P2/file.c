@@ -56,7 +56,8 @@ Graph * ReadNetwork(char * nome, int T[]){
 			G->Nodes[tail]->n_r = 0;
 			G->Nodes[tail]->n_p = 0;
 			G->Nodes[tail]->visit = 0;
-			G->Nodes[tail]->path = 0;
+			G->Nodes[tail]->path = 3;
+			G->Nodes[tail]->nhops = -1;
 			G->Nodes[tail]->ciclo = 0;
 			G->Nodes[tail]->AdjList_C = NULL;
 			G->Nodes[tail]->AdjList_R = NULL;

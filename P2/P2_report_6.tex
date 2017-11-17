@@ -102,9 +102,9 @@
 
 		\subsection{Leitura da Rede}
 
-			De forma a criar a rede, é lido o ficheiro de texto correspondente linha a linha e é feita a alocação dos nós, alocando a AS que é a \emph{tail}, inicializando os vários parâmetros desse nó (como o número de \emph{peers}, de \emph{providers},etc) e a respetiva ligação. Como se sabe que as ligações são dadas de forma correcta e que para cada ligação P é dada uma C e que para cada ligação R é dada outra R, não há problema em alocar apenas uma das AS que aparecem na linha lida. Tendo em conta o tipo de ligação entre as ASes, é criado um nó na lista de adjacência correspondente da \emph{tail} dessa ligação.\\
+			De forma a criar a rede, é lido o ficheiro de texto correspondente linha a linha e é feita a alocação dos nós, alocando a AS que é a \emph{tail}, inicializando os vários parâmetros desse nó (como o número de \emph{peers}, de \emph{providers},etc) e a respetiva ligação. Como se sabe que as ligações são dadas de forma correcta e que para cada ligação P é dada uma C e que para cada ligação R é dada outra R, não há problema em alocar apenas uma das AS que aparecem na linha lida. Tendo em conta o tipo de ligação entre as ASes, é criado um nó no início da lista de adjacência correspondente da \emph{tail} dessa ligação.\\
 
-			\noindent Para criar a ligação é usada a função \emph{AddEdge} que, recebendo o nó de onde a ligação provém, cria essa aresta para a \emph{head} da ligação e insere-a na respetiva lista de adjacência, tendo em conta o tipo de ligação e a informação do nó de destino.No final da alocação são percorridos todos os nós de forma a obter a lista de \emph{Tier1s}, que será útil nas restantes funções.
+			\noindent Para criar a ligação é usada a função \emph{AddEdge} que, recebendo o nó de onde a ligação provém, cria essa aresta para a \emph{head} da ligação e insere-a na respetiva lista de adjacência, tendo em conta o tipo de ligação e a informação do nó de destino.No final da alocação são percorridos todos os nós de forma a obter a lista de \emph{Tier1s} (T1s), que será útil nas restantes funções.
 
 			\begin{algorithm}[htbp]
 			\caption{AddEdge}
@@ -115,16 +115,16 @@
 
 				\If{type == 1}
 					\State Ligação C
-					\State N\_Costumers ++;
+					\State No->N\_Costumers ++;
 					\State Adiciona Aux a ListaAdj\_C
 				\Else
 					\If{type == 2}
 						\State Ligação R
-						\State N\_Peers ++
+						\State No->N\_Peers ++
 						\State Adiciona Aux a ListaAdj\_R
 					\Else
 						\State Ligação P
-						\State N\_Providers ++
+						\State No->N\_Providers ++
 						\State Adiciona Aux a ListaAdj\_P
 					\EndIf
 				\EndIf
@@ -141,17 +141,28 @@
 			\noindent As funções que fazem parte deste algoritmo são \emph{VerifyCycle}, que percorre a lista de T1s para chamar a função que percorre os nós (\emph{DFS}) e verificar se existe ciclo ou não. 
 
 			\begin{algorithm}[htbp]
-			\caption{BLAdhjskd}
+			\caption{DFS}
 			\begin{algorithmic}[1]
-				
-				\State FALTA ESTE
-				
+				\State ciclo := 0 
+				\State search := No->AdjList\_C
+				\While{search != NULL}
+					\If{ciclo == 1}
+						\State Há um ciclo. Sair
+					\Else
+						\State Marcar nó como visitado.
+						\State No->ciclo =1;
+						\State DFS(Nó seguinte)
+						\State No->ciclo = 0;
+					\EndIf
+					\State search := search->next
+
+				\EndWhile
 			\end{algorithmic}
 			\end{algorithm}
 
 		\subsection{Verificação de Conectividade}
 
-			Tendo em conta as regras descritas no enunciado, para que uma rede seja Comercialmente Conexa, é necessário que todos os nós \emph{Tier1} (T1) sejam \emph{peers} uns dos outros, se não existirão ligações que não serão possíveis (por exemplo, um T1 A só pode chegar a um T1 C se existir um ligação entre eles do tipo R, visto que não podemutilizar várias ligações R nem usar ligações P após ligações C). No entanto, esta condição é, também, suficiente, pois todos os nós que não sejam \emph{Tier1s} vão ter pelo menos uma ligação do tipo P (e respetiva ligação C no sentido contrário), até que eventualmente se chegue a um T1 que, sendo \emph{peer} de todos os outros T1s, vai permitir que exista uma ligação até qualquer outro nó tipo. Se o nó em questão não tiver uma ligação P, isso faz dele um T1, o que leva a que tenha ligações R com todos os outros T1s, pela condição inicial. Sabendo que não existem ciclos de clientes pelo algoritmo anterior, também não existirão ciclos de fornecedor que possam fazer com que o que é aqui descrito não se aplique.\\
+			Tendo em conta as regras descritas no enunciado, para que uma rede seja Comercialmente Conexa, é necessário que todos os nós \emph{Tier1} sejam \emph{peers} uns dos outros, se não existirão ligações que não serão possíveis (por exemplo, um T1 A só pode chegar a um T1 C se existir um ligação entre eles do tipo R, visto que não podemutilizar várias ligações R nem usar ligações P após ligações C). No entanto, esta condição é, também, suficiente, pois todos os nós que não sejam \emph{Tier1s} vão ter pelo menos uma ligação do tipo P (e respetiva ligação C no sentido contrário), até que eventualmente se chegue a um T1 que, sendo \emph{peer} de todos os outros T1s, vai permitir que exista uma ligação até qualquer outro nó tipo. Se o nó em questão não tiver uma ligação P, isso faz dele um T1, o que leva a que tenha ligações R com todos os outros T1s, pela condição inicial. Sabendo que não existem ciclos de clientes pelo algoritmo anterior, também não existirão ciclos de fornecedor que possam fazer com que o que é aqui descrito não se aplique.\\
 
 			\noindent Assim, basta verificar a existência de ligações \emph{peer} entre todos todos os \emph{Tier1s}. Tendo em conta que nos é dada a garantia de que as ligações no ficheiro de texto são apresentadas de forma correcta, basta verificar o número de ligações R que cada T1 tem com  outros T1s (pois não vão existir ligações repetidas ou em falta, devido à garantia de que as ligações são dadas de forma correcta).\\
 			\noindent Como descrito no algoritmo seguinte, basta guardar a informação de todos os T1s (ou seja, número de ligações P é zero), contá-los e verificar que cada T1 tem N-1 ligações R com outros T1s, sendo N o número de T1s.\\
@@ -168,7 +179,7 @@
 					\State count := 0;
 					\For{All Peers}
 						\If{Peer is a T1}
-							\State count ++;
+							\State count ++; 
 						\EndIf
 					\EndFor
 					\If{count != N-1}
@@ -179,25 +190,58 @@
 			\end{algorithmic}
 			\end{algorithm}
 
-			\noindent A complexidade deste algoritmo é de $\mathcal{O}$($n^(2)$), no entanto, n é o número de nós T1, que é um número bastante reduzido de nós, portanto não é problemático.
+			\noindent A complexidade deste algoritmo é de $\mathcal{O}$($n^{2}$), no entanto, n é o número de nós T1, que é um número bastante reduzido de nós, portanto não é problemático.d
 
 		\subsection{Procura de Caminhos}
-			texto bla\\
-			bla\\
-			bla\\
+			De forma a saber todos os caminhos para todos os nós existentes na rede, é usado um algoritmo que recebe um nó de destino e calcula qual o tipo de caminho que cada nó vai ter para esse nó de destino, tendo em conta as prioridades de caminhos. Tendo em conta que é um elevado número de nós, o cálculo de todos os caminhos é um processo exigente.\\
+			
+			\noindent Sabendo que a rede é comercialmente conexa e que não existem ciclos de clientes, a primeira coisa a fazer é identificar todos os nós que terão caminhos C para o destino, ou seja, os nós que são \emph{Providers} do nó destino e os respetivos \emph{Providers} e assim sucessivamente. De seguida, os nós que vão ter ligações do tipo R são os nós que são \emph{peers} do nó de destino ou \emph{peers} dos nós que já apresentam ligações do tipo C. Todos os restantes nós serão caminhos P, daí a inicialização ser feita para este tipo de caminho, poupando tempo com a decisão do caminho para estes nós.\\
 
 			\begin{algorithm}[htbp]
-			\caption{gjfdksl}
+			\caption{Path}
 			\begin{algorithmic}[1]
 				
-				\State FALTA ESTE
+				\State Path := 3 para todos os nós
+				\For{Todos os Providers do nó}
+					\State Path := 1;
+					\For{Todos os Peers do Provider}
+						\If{Path != 1}
+							\State Path = 2
+						\EndIf
+					\EndFor
+					\State Repetir para todos os Providers dos Providers até ao T1
+				\EndFor
 
 			\end{algorithmic}
 			\end{algorithm}
 
+			\noindent Este algoritmo é repetido N vezes, onde N é o número de ASes existentes, de forma a obter estatísticas a apresentar sobre a rede toda.\\
+
+			\noindent Usando este algoritmo, é possível saber quais são os tipos de caminhos a ser usados de forma eficiente, obtendo-os em menos de cinco minutos, sendo que o algoritmo apresenta uma complexidade de $\mathcal{O}$(blablabla) la blfdmdlf. No entanto, embora este algoritmo cumpra aquilo que é pedido no enunciado do projeto, para que fosse uma representação mais fiel do algoritmo BGP, ter-se-ia em conta, também, o número de hops de cada caminho, escolhendo sempre o caminho com menor número de hops (dentro do mesmo tipo de caminho).\\
+
 
 		\subsection{Estatísticas}
-			Estatisitcas BlaBlaBla \\
+			Através da análise feita tendo em conta apenas as preferências de caminho (C > R > P), pela análise da rede dada em \emph{LargeNetwork.txt}, contam-se 1,933,668,702 caminhos ($\approx$ $1.9\times 10$$^{9}$), sendo que estão divididos da forma apresentada na Tabela~\ref{Tabela1}.\\
+
+			\begin{table}[ht]
+				\caption{Distribuição dos caminhos na rede fornecida}
+				\begin{center}
+					\begin{tabular}{|c||c||c|}
+						\hline
+						Path Type &	\# de Paths & \% de Paths \\
+						\hline
+						C & 11,828,240 & 0.611699\\
+						\hline
+						R & 217,369,490 & 11.241299\\
+						\hline
+						P & 1,704,470,972 & 88.147001\\
+						\hline
+					\end{tabular}
+				\end{center}
+				\label{Tabela1}
+			\end{table}
+
+			\noindent É esperado que assim seja, pois há um número muito maior de \emph{stubs} e de nós intermédios que de T1s. Em média, cada nó 
 
 			\noindent Outra estatística interessante a apresentar e a analisar seria o número de ASes pelas quais um pacote tem de viajar para ir de um nó até ao outro e quais os tipos de ligações que tem de percorrer até chegar ao seu destino. Tal implementação poderia ter sido feita no algoritmo que informa qual o melhor caminho a percorrer pela preferência de tipo de caminho. Podia, ainda, ser acrescentada a escolha do caminho mais curto, de forma a ser uma representação mais fiel do BGP, acrescentando a condição de que, para além de escolher o caminho preferencial, escolher o que apresentar o menor número número de saltos.
 

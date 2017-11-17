@@ -152,7 +152,7 @@ int DFS(Node * Nodes[], Node * No){
 					return ciclo;
 				}
 			}
-		}
+		}	
 		search = search->next;
 	}
 
@@ -198,4 +198,104 @@ int VerifyCommerc(Node * Nodes[], int T[]){
 
 	printf("É comercialmente conexa!\n");
 	return 0;
+}
+
+/********************************************
+* Path4():
+* 
+* 
+*********************************************/
+
+
+
+void Path4(Node * Nodes[], Node * No){
+
+	NodeAdj * search = NULL;
+	No->visit = 1;
+	
+
+	/*todos os providers do nó em questão (e respetivos providers) vão ter um caminho C para o nó*/
+	No->nhops = 0;
+	AddCpaths(Nodes, No);
+
+	search = No->AdjList_R;
+
+	while(search != NULL){/*peers do nó em questão*/
+		if(Nodes[search->AS]->path != 1){/*Se não tiver já um caminho C, passa ter um caminho R*/
+			Nodes[search->AS]->path = 2;
+			Nodes[search->AS]->nhops = 1;
+		}
+		search = search->next;
+	}
+
+	No->path = 0;
+
+		/*Peer não pode ter ligação C com algum nó que tenha ligação C para o nó destino, senão seria ciclo*/
+		/*pode ter ligação peer com algum nó que tenha ligação C*/
+		/*De resto, a ligação é tipo 3*/
+
+	/*todos os restantes nós têm ligação do tipo 3, visto que é comercialmente conexa*/
+
+	return;
+}
+
+/********************************************
+* AddCpaths():
+* 
+* 
+*********************************************/
+
+
+
+void AddCpaths(Node * Nodes[], Node * No){
+	NodeAdj * search = NULL;
+	No->visit = 1;
+	NodeAdj * aux = NULL;
+
+	search = No->AdjList_P;
+
+	while(search!=NULL){
+		Nodes[search->AS]->path = 1;
+		aux = Nodes[search->AS]->AdjList_R;
+
+		/* Só quem for peer de alguém com ligação C é que terá ligação R (ou peer do nó mesmo)*/
+		while(aux!= NULL){
+			if(Nodes[aux->AS]->path >2){
+				Nodes[aux->AS]->path =2;
+				Nodes[aux->AS]->nhops = No->nhops +1;
+			}
+			aux = aux->next;
+		}
+
+		if(Nodes[search->AS]->visit == 0){
+			Nodes[search->AS]->nhops = No->nhops + 1;
+			AddCpaths(Nodes, Nodes[search->AS]);
+		}
+
+		search=search->next;
+	}
+	return;
+}
+
+/********************************************
+* cleanVisits(): Percorre todos os nós,
+* limpando a variável de visitadoe de caminho.
+* Faz, ao mesmo tempo, a contagem dos
+* caminhos.
+* 
+* 
+*********************************************/
+
+void cleanVisits(Node * Nodes[], int C[]){
+	for(int i=0; i<70000; i++){ 
+		if(Nodes[i] != NULL){// && Nodes[i]->path >0 && Nodes[i]->path <4){
+			Nodes[i]->visit = 0;
+
+			if(Nodes[i]->path > 0 && Nodes[i]->path <4 ){
+				C[Nodes[i]->path -1]++;
+			}
+			Nodes[i]->path = 3;
+			Nodes[i]->nhops =-1;	
+		}
+	}
 }
